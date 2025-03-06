@@ -116,23 +116,12 @@ def add_discord(servername, discord_link):
     else:
         print(f"Server {servername} not found.")
 
-@bot.command()
+@commands.has_permissions(administrator=True)@bot.command()
 async def add_server(ctx, servername: str, serverip: str):
     add_server_to_config(servername, serverip)
     await ctx.respond(f"Server {servername} successfully added.")
 
-@bot.command()
-async def info_server(ctx, server1: str = discord.Option(choices=get_server_names())):
-    ip = info_server_from_config(server1, "ip")
-    name = server1
-    onlines = info_server_from_config(server1, "top_online")
-    website = info_server_from_config(server1, "website")
-    discord_link = info_server_from_config(server1, "discord")
-    owners = info_server_from_config(server1, "owners")
-    developers = info_server_from_config(server1, "developers")
-    managers = info_server_from_config(server1, "managers")
-    await ctx.respond(f"Server: {name}\nTop online: {onlines}\nWebsite: {website}\nDiscord: {discord_link}\nOwners: {owners}\nManagers: {managers}\nDevelopers: {developers}")
-
+@commands.has_permissions(administrator=True)
 @bot.command()
 async def add_info(ctx,info : discord.Option(str, choices=(["discord","site"])),link , server: str = discord.Option(choices=get_server_names())):
 
@@ -142,7 +131,7 @@ async def add_info(ctx,info : discord.Option(str, choices=(["discord","site"])),
    elif info == "site":
        add_website(server,"link")
        await ctx.respond(f"be Server {server} website {link} add shod")
-       
+@commands.has_permissions(administrator=True)       
 @bot.command()
 async def add_staff(ctx,info : discord.Option(str, choices=(["owner","developer","manager"])),member : discord.Member , server: str = discord.Option(choices=get_server_names())):
    member1 = member.id
@@ -191,7 +180,7 @@ def server_status(address):
         print(f"Error fetching server status: {e}")
         return "Unknown", 0, 0
     
-
+@commands.has_permissions(administrator=True)
 @bot.command()
 async def create_channel(ctx, server: str = discord.Option(choices=get_server_names())):
     guild = ctx.guild

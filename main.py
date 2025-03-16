@@ -116,7 +116,8 @@ def add_discord(servername, discord_link):
     else:
         print(f"Server {servername} not found.")
 
-@commands.has_permissions(administrator=True)@bot.command()
+@commands.has_permissions(administrator=True)
+@bot.command()
 async def add_server(ctx, servername: str, serverip: str):
     add_server_to_config(servername, serverip)
     await ctx.respond(f"Server {servername} successfully added.")

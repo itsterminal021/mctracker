@@ -162,20 +162,17 @@ async def on_ready():
             channel = bot.get_channel(channel_id)
             if channel:
                 await update_message(channel, servername)
+import requests
 def server_status(address):
     try:
-
-        response = requests.get(f"https://eu.mc-api.net/v3/server/ping/{address}")
+        response = requests.get(f"https://api.mcsrvstat.us/2/{address}") 
         data = response.json()
-
-
         if "online" in data and data["online"]:
-            version = data.get("version", {}).get("name", "Unknown")
+            version = data.get("version", "Unknown")
             online_players = data.get("players", {}).get("online", 0)
             max_players = data.get("players", {}).get("max", 0)
         else:
             version, online_players, max_players = "Unknown", 0, 0
-
         return version, online_players, max_players
     except Exception as e:
         print(f"Error fetching server status: {e}")

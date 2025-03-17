@@ -127,10 +127,10 @@ async def add_server(ctx, servername: str, serverip: str):
 async def add_info(ctx,info : discord.Option(str, choices=(["discord","site"])),link , server: str = discord.Option(choices=get_server_names())):
 
    if info == "discord":
-       add_discord(server,"link")
+       add_discord(server,link)
        await ctx.respond(f"be Server {server} discord {link} add shod")
    elif info == "site":
-       add_website(server,"link")
+       add_website(server,link)
        await ctx.respond(f"be Server {server} website {link} add shod")
 @commands.has_permissions(administrator=True)       
 @bot.command()
